@@ -20,6 +20,22 @@ def search(root,x):
         return search(root.right,x)
 
 
+def  printelements_in_range(root,k1,k2):
+    if root == None:
+        return 
+        #it explores right subtree
+    if root.data > k2:
+         printelements_in_range(root.left,k1,k2)
+         #it explores left subtree
+    elif root.data < k1:
+         printelements_in_range(root.right,k1,k2)
+         #here printing occurs because it ensures only the nodes with in the specified range are printed,it avoids printing values that fall outside the specifed range k1,k2
+    else:
+        #after 
+        print("the elements are",root.data)
+        printelements_in_range(root.left,k1,k2)
+        printelements_in_range(root.right,k1,k2)
+
 
 def printTreeDetail(root):
     if root == None:
@@ -72,3 +88,4 @@ root = TakeLevelWiseTreeInput()
 printTreeDetail(root)
 search(root,5)
 
+printelements_in_range(root,20,50)
