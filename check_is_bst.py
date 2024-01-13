@@ -115,7 +115,19 @@ def isBST2(root):
     return minimum,maximum,isTreeBST
 
 
-
+#anothere improved solution
+def isBst3(root,min_range,max_range):
+    #since empty tree is an bst so retruning  true
+    if root == None:
+        return True
+        #logic:our root data should be greater than min range and root data should be greater than max range
+    if root.data < min_range or root.data > max_range:
+        return False
+        #checking with in leftsubtree and right subtree using recursion
+    isLeftWithinconstraints = isBst3(root.left,min_range,root.data-1)
+    isRightWithinconstraints = isBst3(root.right,root.data,max_range)
+#and finally returning 
+    return isLeftWithinconstraints and isRightWithinconstraints
 
 #a big note in python if you want to return something you need to print it
 #for bst
@@ -126,11 +138,15 @@ def isBST2(root):
 
 
 
-#BST 2
+# #BST 2
+# root = TakeLevelWiseTreeInput()
+# printTreeDetail(root)
+# print(isBST2(root))
+
+#BST3
 root = TakeLevelWiseTreeInput()
 printTreeDetail(root)
-print(isBST2(root))
-
+print(isBst3(root,-10000,10000))
 
 
 
