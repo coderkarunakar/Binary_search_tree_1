@@ -1,6 +1,7 @@
 #check is bst or not
 #Binary_Search_Tree
 #search_node_in_tree
+#bst2 improved solution
 class BinaryTreeNode:
     def __init__(self,data):
         self.data = data
@@ -91,13 +92,45 @@ def TakeLevelWiseTreeInput():
             current_node.right =rightchild
             q.put(rightchild)
     return root
+
+#improved submission for check bst
+def isBST2(root):
+    #if root is empty it is a bst only so we are returning max,min  ,bst is true
+    if root == None:
+        return 100000,-100000,True
+        #we are getting this 6 values by recursion calls on roots left or roots right
+    LeftMin,LeftMax,isLeftBst=isBST2(root.left)
+    RightMin,RightMax,isRightBst=isBST2(root.right)
+    #getting the min value among leftmax,leftmin,and root data similarly getting max value among them
+    minimum = min(LeftMin,RightMin,root.data)
+    maximum = max(RightMax,LeftMax,root.data)
+    isTreeBST =True
+
+    #2conditions we need to verify overall bst and leftsubtree ,and right subtree bst we need to ensure
+    #this is the logic for BST
+    if root.data <= LeftMax or root.data > RightMin:
+        isTreeBST = False
+    if not (isLeftBst) or not (isRightBst):
+        isTreeBST = False
+    return minimum,maximum,isTreeBST
+
+
+
+
+#a big note in python if you want to return something you need to print it
+#for bst
+
+# root = TakeLevelWiseTreeInput()
+# printTreeDetail(root)
+# print(isBst(root))
+
+
+
+#BST 2
 root = TakeLevelWiseTreeInput()
 printTreeDetail(root)
+print(isBST2(root))
 
 
-if isBst(root):
-    print("The tree is a Binary Search Tree (BST).")
-else:
-    print("The tree is not a Binary Search Tree (BST).")
 
 
